@@ -106,7 +106,7 @@ int NBElmt(Queue Q){
     }
     return i;
 }
-
+/*
 boolean waktuTercepat(Queue data, int waktu){
 	NodeQueue *P;
     P = data.Front;
@@ -123,4 +123,28 @@ boolean waktuTercepat(Queue data, int waktu){
 		}	
 	}
 	return true;
+}*/
+
+void PrintQueue(Queue data){
+	//Kamus
+	NodeQueue *p;
+	int i = 1;
+	//Algoritma
+	puts("Simulasi Program Check-in - Queue");
+	puts("================================================");
+	puts("No Nama \t Waktu Datang \t Kategori   Wpelayanan Wpemerikasaan Wselesai");
+	if(!IsQueueEmpty(data)){
+		p = data.Front;
+		while (p != nil){
+			//printf("%d. %s \t %d \t\t %d \t\t %d \t\t %d\n", i, p->info.nama, p->info.Wdatang, p->info.jumlahKoper,  p->info.Wmengantri, p->info.Wselesai);
+			printf("%d. %s \t %d  %s\n", i, p->info.nama, p->info.waktuKedatangan, p->info.dataPenyakit[0]);
+			i++;
+			p = next(p);
+		}
+	}
+	if(i==1){
+		printf("[ Antrian masih kosong ]\n");
+	}
+	printf("Press any key to continue.. ");
+	getch();
 }

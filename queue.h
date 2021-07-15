@@ -91,5 +91,5 @@ void deQueue(Queue *Q, infotypeQueue *data);
 int NBElmt(Queue Q); 
 
 boolean waktuTercepat(Queue data, int waktu);
-
+void PrintQueue(Queue data);
 #endif // QUEUE_H
