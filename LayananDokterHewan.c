@@ -87,11 +87,11 @@ void panggilPendaftar(Queue *myQueue){
 }
 
 void help(){
-	
+	help();
 }
 
 void credit(){
-	
+	credit();
 }
 
 
