@@ -100,11 +100,11 @@ void panggilPendaftar(Queue *myQueue){
 }
 
 void help(){
-	
+	help();
 }
 
 void credit(){
-	
+	credit();
 }
 
 void sort(Queue *Q){

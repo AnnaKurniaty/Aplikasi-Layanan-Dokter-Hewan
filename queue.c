@@ -148,3 +148,26 @@ void PrintQueue(Queue data){
 	printf("Press any key to continue.. ");
 	getch();
 }
+
+void help(){
+	
+}
+
+void credit(){
+	char kembali='0';
+	system("cls");
+	do{
+		printf("\n\t\t\t\t|~|~|~|~TIC TAC TOE~|~|~|~|");
+		printf("\n\n\t\t\t\t\t~|Credits|~");
+		printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
+		printf("\t\t\t\t Anna Kurniaty \n");
+		printf("\t\t\t\t Dimas Wisnu Saputro \n\n");
+		printf("\t\t\t\t Hasanah \n\n");
+		printf("\t\t\t\t D4 - Teknik Informatika \n");
+		printf("\t\t\t\t JTK 2020 \n");
+		printf("\n\t\t\t\t>>>---------------------<<<\n\n");
+		printf("\n Type 1 if you want to return to the menu : ");
+	    scanf("%s",&kembali);
+		}
+	while(kembali != '1');
+}
