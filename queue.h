@@ -23,11 +23,13 @@
 #define Info(P) (P)->info  
 #define next(P) (P)->next
 
+
 typedef struct{
 	int waktuKedatangan; 
 	char nama[255]; //Nama majikan
 	char dataPenyakit[10][255]; //Daftar Nama Penyakit 
-	boolean kategoriPenyakit[3];  //Kategori Penyakit || indeks 0 true == ringan || indeks 1 true == ringan || indeks 2 true == Berat
+	char kategoriPenyakit[10]; //Berisi R = Ringan || S = Sedang || B = Berat
+	//boolean kategoriPenyakit[3];  //Kategori Penyakit || indeks 0 true == ringan || indeks 1 true == sedang || indeks 2 true == Berat
 	int WaktuPelayanan; //Waktu estimasi Pelayanan
 	int WaktuMulai; //Waktu estimasi mulai Pemeriksaan
 	int WaktuSelesai; //Waktu selesai Pemeriksaan

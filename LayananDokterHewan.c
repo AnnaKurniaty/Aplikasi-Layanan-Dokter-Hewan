@@ -4,7 +4,11 @@
 #include "queue.c"
 #include "queue.h"
 
-
+/*
+	ringan : penyakit kulit, luka ringan, bersin
+	sedang : cacingan, diare, luka dalam
+	berat : gangguan kerongkongan yang mengeluarkan lendir yang berbau busuk, kuning, terkena virus 
+*/
 void tambahPendaftar(Queue *Q);
 void tampilPendaftar(Queue myQueue);
 void panggilPendaftar(Queue *myQueue);
@@ -12,7 +16,27 @@ void help();
 void credit();
 
 void sort(Queue *Q);
-void set(Queue *Q);
+int HitungWaktuPelayanan(char temp[10][255]);
+
+int HitungWaktuPelayanan(char temp[10][255]){
+	int i;
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+			return 45;
+		}else if(strcmp(temp[i],"kuning")==0){
+			return 45;
+		}else if(strcmp(temp[i],"terkena virus")==0){
+			return 45;
+		}else if(strcmp(temp[i],"cacingan")==0){
+			return 30;
+		}else if(strcmp(temp[i],"diare")==0){
+			return 30;
+		}else if(strcmp(temp[i],"luka dalam")==0){
+			return 30;
+		}
+	}
+	return 15;
+}
 
 void tambahPendaftar(Queue *Q){
 	//Kamus
@@ -21,13 +45,11 @@ void tambahPendaftar(Queue *Q){
 	
 	//Algoritma
 	p = Q->Rear;
-	//customer.Wselesai = 0;
-	//customer.Wmengantri = 0;
 	
 	//Input data antrian
 	printf("Nama         : ");
 	fflush(stdin);
-	scanf("%s", customer.nama);
+	scanf("%[^\n]c", customer.nama);
 	printf("Waktu Datang : ");
 	scanf("%d", &customer.waktuKedatangan);
 	int i;
@@ -35,7 +57,7 @@ void tambahPendaftar(Queue *Q){
 	for(i=0; i<10; i++){
 		printf("Nama Penyakit %d : ", i+1);
 		fflush(stdin);
-		scanf("%s", customer.dataPenyakit[i]);
+		scanf("%[^\n]c", customer.dataPenyakit[i]);
 		
 		fflush(stdin);
 		printf("Apakah ada penyakit lain? (y/n): ");
@@ -44,35 +66,26 @@ void tambahPendaftar(Queue *Q){
 			i+=10;
 		}
 	}
-	/*
-	//Proses Menghitung Waktu Mengantri dan Estimasi Selesai	
+	
+	//Proses Menghitung Waktu Pelayanan, Waktu Mulai, dan Estimasi Selesai	
+	customer.WaktuPelayanan = HitungWaktuPelayanan(customer.dataPenyakit);
 	if(p==nil){
-		customer.Wselesai = customer.Wdatang + HitungWaktuCheckIn(customer.jumlahKoper);
-		getch();
+		customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
+		customer.WaktuMulai = 0;
 	}
+	
 	if(p!=nil){
-		if(p->info.Wselesai > customer.Wdatang){
-			customer.Wmengantri = p->info.Wselesai - customer.Wdatang;
-			customer.Wselesai = p->info.Wselesai + HitungWaktuCheckIn(customer.jumlahKoper);
+		if(p->info.WaktuSelesai > customer.waktuKedatangan){
+			customer.WaktuMulai = p->info.WaktuSelesai;
+			customer.WaktuSelesai = p->info.WaktuSelesai + customer.WaktuPelayanan;
 		}else{
-			customer.Wmengantri = 0;
-			customer.Wselesai = customer.Wdatang + HitungWaktuCheckIn(customer.jumlahKoper);
+			customer.WaktuMulai = customer.waktuKedatangan;
+			customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
 		}
 	}
 	
-	puts("Hasil proses perhitungan");
-	printf("Waktu Mengantri  : %d\n", customer.Wmengantri);
-	printf("Estimasi Selesai : %d\n", customer.Wselesai);
-	*/
 	//Memasukkan ke antrian
 	enQueue(Q,customer);
-	
-	//Mengurutkan antrian Berdasarkan Prioritas
-	sort(Q);
-	
-	//Mengisi elemen pendukung
-	set(Q);
-	
 	
 	printf("Press any key to continue.. ");
 	getch();
@@ -91,6 +104,10 @@ void help(){
 }
 
 void credit(){
+	
+}
+
+void sort(Queue *Q){
 	
 }
 
@@ -114,6 +131,7 @@ int main(){
 		if(choice=='1'){
 			tambahPendaftar(&myQueue);
 		}else if(choice=='2'){
+			sort(&myQueue);
 			tampilPendaftar(myQueue);	
 		}else if(choice=='3'){
 			panggilPendaftar(&myQueue);
