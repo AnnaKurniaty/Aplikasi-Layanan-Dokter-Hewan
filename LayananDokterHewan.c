@@ -104,19 +104,19 @@ void help(){
 	char a='0';
 	do{
 		system("cls");
-		printf("\n\t\t\t\t||||~TIC TAC TOE|||~|");
+		printf("\n\t\t\t\t||||~QUEENPET|||~|");
 		printf("\n\n\t\t\t\t\t  |Help|");
 		printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
-		printf("\t\t\t\t1. Prioritas \n");
-		printf("\t\t\t\t2. Tata Cara \n");
+		printf("\t\t\t\t1. Aturan Prioritas \n");
+		printf("\t\t\t\t2. Daftar Penyakit \n");
 		printf("\t\t\t\t3. Exit \n");
 		printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 		printf("\n Enter Menu : ");
 	    scanf("%s",&pilih);
 	    if ( pilih == '1' ){
 	    	system("cls");
-	    	printf("\n\t\t\t\t||||~TIC TAC TOE|||~|");
-			printf("\n\n\t\t\t\t  |Help - How to input|");
+	    	printf("\n\t\t\t\t||||~QUEENPET|||~|");
+			printf("\n\n\t\t\t\t  |Help - Aturan Prioritas|");
 			printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\t\t\t\tParameter urutan prioritas \n");
 			printf("\t\t\t\tditentukan dengan nilai \n");
@@ -133,18 +133,16 @@ void help(){
 			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 		}else if ( pilih == '2' ){
 			system("cls");
-	    	printf("\n\t\t\t\t ||||~TIC TAC TOE|||~|");
-			printf("\n\n\t\t\t\t~|Help - Winning Conditions|~");
+	    	printf("\n\t\t\t\t ||||~QUEENPET|||~|");
+			printf("\n\n\t\t\t\t~|Help - Daftar Penyakit|~");
 			printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
-			printf("\t\t\t\tPemain yang pertama kali\n");
-			printf("\t\t\t\tberhasil menyusun tanda \n");
-			printf("\t\t\t\tsecara berurutan membentuk \n");
-			printf("\t\t\t\tgaris horizontal, vertikal,\n");
-			printf("\t\t\t\tatau diagonal akan memenangkan\n");
-			printf("\t\t\t\tpermainan. \n");
-			printf("\t\t\t\t(mode 3x3 = 3 tanda) \n");
-			printf("\t\t\t\t(mode 5x5 = 4 tanda)\n");
-			printf("\t\t\t\t(mode 7x7 = 5 tanda)\n");
+			printf("\t\t\t\t1. Ringan : penyakit kulit,\n");
+			printf("\t\t\t\t   luka ringan, bersin\n");
+			printf("\t\t\t\t2. Sedang : cacingan, diare, \n");
+			printf("\t\t\t\t   luka dalam\n");
+			printf("\t\t\t\t3. Berat : gangguan kerongkongan\n");
+			printf("\t\t\t\t   yang mengeluarkan lendir yang \n");
+			printf("\t\t\t\t   berbau busuk, kuning, terkena virus \n");
 			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\n type anything to return : ");
 	    	scanf("%s",&a);
