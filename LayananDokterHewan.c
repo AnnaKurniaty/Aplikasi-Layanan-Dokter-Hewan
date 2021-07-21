@@ -136,11 +136,75 @@ void panggilPendaftar(Queue *myQueue){
 }
 
 void help(){
-	help();
+	char pilih='0';
+	char a='0';
+	do{
+		system("cls");
+		printf("\n\t\t\t\t    ||||~QUEENPET~||||");
+		printf("\n\n\t\t\t\t\t  |Help|");
+		printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
+		printf("\t\t\t\t1. Aturan Prioritas \n");
+		printf("\t\t\t\t2. Daftar Penyakit \n");
+		printf("\t\t\t\t3. Exit \n");
+		printf("\n\t\t\t\t>>>---------------------<<<\n\n");
+		printf("\n Enter Menu : ");
+	    scanf("%s",&pilih);
+	    if ( pilih == '1' ){
+	    	system("cls");
+	    	printf("\n\t\t\t\t    ||||~QUEENPET~||||");
+			printf("\n\n\t\t\t\t  |Help - Aturan Prioritas|");
+			printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
+			printf("\t\t\t\tParameter urutan prioritas \n");
+			printf("\t\t\t\tditentukan dengan nilai \n");
+			printf("\t\t\t\tsebagai berikut :\n");
+			printf("\t\t\t\t1. Memiliki salah satu\n");
+			printf("\t\t\t\t   penyakit berat - 4 \n");
+			printf("\t\t\t\t2. Memiliki minimal 2 buah\n");
+			printf("\t\t\t\t   penyakit sedang - 3\n");
+			printf("\t\t\t\t3. Memiliki minimal 3 buah\n");
+			printf("\t\t\t\t   penyakit ringan - 2 \n");
+			printf("\t\t\t\t4. Waktu kedatangan - 1\n");
+			printf("\n type anything to return : ");
+	    	scanf("%s",&a);
+			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
+		}else if ( pilih == '2' ){
+			system("cls");
+	    	printf("\n\t\t\t\t    ||||~QUEENPET~||||");
+			printf("\n\n\t\t\t\t~|Help - Daftar Penyakit|~");
+			printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
+			printf("\t\t\t\t1. Ringan : penyakit kulit,\n");
+			printf("\t\t\t\t   luka ringan, bersin\n");
+			printf("\t\t\t\t2. Sedang : cacingan, diare, \n");
+			printf("\t\t\t\t   luka dalam\n");
+			printf("\t\t\t\t3. Berat : gangguan \n");
+			printf("\t\t\t\t   kerongkongan yang  \n");
+			printf("\t\t\t\t   mengeluarkan lendir yang \n");
+			printf("\t\t\t\t   berbau busuk, kuning, \n");
+			printf("\t\t\t\t   terkena virus\n");
+			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
+			printf("\n type anything to return : ");
+	    	scanf("%s",&a);
+	    }
+	}while(pilih != '3');
 }
 
 void credit(){
-	credit();
+	char kembali='0';
+	system("cls");
+	do{
+		printf("\n\t\t\t\t|~|~|~|~TIC TAC TOE~|~|~|~|");
+		printf("\n\n\t\t\t\t\t~|Credits|~");
+		printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
+		printf("\t\t\t\t Anna Kurniaty \n");
+		printf("\t\t\t\t Dimas Wisnu Saputro \n\n");
+		printf("\t\t\t\t Hasanah \n\n");
+		printf("\t\t\t\t D4 - Teknik Informatika \n");
+		printf("\t\t\t\t JTK 2020 \n");
+		printf("\n\t\t\t\t>>>---------------------<<<\n\n");
+		printf("\n Type 1 if you want to return to the menu : ");
+	    scanf("%s",&kembali);
+		}
+	while(kembali != '1');
 }
 
 void sort(Queue *Q){

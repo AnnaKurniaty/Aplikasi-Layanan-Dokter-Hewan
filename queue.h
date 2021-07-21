@@ -95,6 +95,4 @@ int NBElmt(Queue Q);
 
 boolean waktuTercepat(Queue data, int waktu);
 void PrintQueue(Queue data);
-void help();
-void credit();
 #endif // QUEUE_H
