@@ -33,6 +33,7 @@ typedef struct{
 	int WaktuPelayanan; //Waktu estimasi Pelayanan
 	int WaktuMulai; //Waktu estimasi mulai Pemeriksaan
 	int WaktuSelesai; //Waktu selesai Pemeriksaan
+	int prioritas;
 }data;
 
 /* Definisi elemen dan address */ 

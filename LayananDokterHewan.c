@@ -14,9 +14,10 @@ void tampilPendaftar(Queue myQueue);
 void panggilPendaftar(Queue *myQueue);
 void help();
 void credit();
-
+void set(Queue *Q);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
+int HitungPrioritas(char temp[10][255]);
 
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
@@ -37,6 +38,41 @@ int HitungWaktuPelayanan(char temp[10][255]){
 	}
 	return 15;
 }
+
+int HitungPrioritas(char temp[10][255]){
+	int i;
+	int tempSedang = 0;
+	int tempRingan = 0;
+	
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+			return 4;
+		}else if(strcmp(temp[i],"kuning")==0){
+			return 4;
+		}else if(strcmp(temp[i],"terkena virus")==0){
+			return 4;	
+		}else if(strcmp(temp[i],"cacingan")==0){
+			tempSedang++;
+		}else if(strcmp(temp[i],"diare")==0){
+			tempSedang++;
+		}else if(strcmp(temp[i],"luka dalam")==0){
+			tempSedang++;
+		}else if(strcmp(temp[i],"penyakit kulit")==0){
+			tempRingan++;
+		}else if(strcmp(temp[i],"luka ringan")==0){
+			tempRingan++;
+		}else if(strcmp(temp[i],"bersin")==0){
+			tempRingan++;
+		}
+	}
+	if(tempSedang>=2){
+		return 3;
+	}else if(tempRingan>=3){
+		return 2;
+	}
+	return 1;
+}
+
 
 void tambahPendaftar(Queue *Q){
 	//Kamus
@@ -83,7 +119,7 @@ void tambahPendaftar(Queue *Q){
 			customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
 		}
 	}
-	
+	customer.prioritas = HitungPrioritas(customer.dataPenyakit);
 	//Memasukkan ke antrian
 	enQueue(Q,customer);
 	
@@ -108,6 +144,40 @@ void credit(){
 }
 
 void sort(Queue *Q){
+	//Kamus Data
+	NodeQueue *p, *buff;
+	data temp;
+	int i;
+	
+	//Algoritma
+	p = Q->Front;
+	if(p==NULL || p->next==NULL){
+ 		return;
+	}
+	p = p->next;
+	while(p->next!=NULL){
+		buff = p->next;
+		while(buff!=NULL){
+			if(p->info.WaktuSelesai > buff->info.waktuKedatangan){
+				if(p->info.prioritas < buff->info.prioritas){
+					temp = p->info;
+					p->info = buff->info;
+					buff->info = temp;
+				}else if(p->info.prioritas == buff->info.prioritas){
+					if(p->info.waktuKedatangan > buff->info.waktuKedatangan){
+						temp = p->info;
+						p->info = buff->info;
+						buff->info = temp;
+					}
+				}
+			}
+			buff = buff->next;
+		}
+		p = p->next; 
+	}
+}
+
+void set(Queue *Q){
 	
 }
 
@@ -132,6 +202,7 @@ int main(){
 			tambahPendaftar(&myQueue);
 		}else if(choice=='2'){
 			sort(&myQueue);
+			set(&myQueue);
 			tampilPendaftar(myQueue);	
 		}else if(choice=='3'){
 			panggilPendaftar(&myQueue);
