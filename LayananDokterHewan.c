@@ -104,7 +104,7 @@ void help(){
 	char a='0';
 	do{
 		system("cls");
-		printf("\n\t\t\t\t||||~QUEENPET|||~|");
+		printf("\n\t\t\t\t    ||||~QUEENPET~||||");
 		printf("\n\n\t\t\t\t\t  |Help|");
 		printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
 		printf("\t\t\t\t1. Aturan Prioritas \n");
@@ -115,7 +115,7 @@ void help(){
 	    scanf("%s",&pilih);
 	    if ( pilih == '1' ){
 	    	system("cls");
-	    	printf("\n\t\t\t\t||||~QUEENPET|||~|");
+	    	printf("\n\t\t\t\t    ||||~QUEENPET~||||");
 			printf("\n\n\t\t\t\t  |Help - Aturan Prioritas|");
 			printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\t\t\t\tParameter urutan prioritas \n");
@@ -133,16 +133,18 @@ void help(){
 			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 		}else if ( pilih == '2' ){
 			system("cls");
-	    	printf("\n\t\t\t\t ||||~QUEENPET|||~|");
+	    	printf("\n\t\t\t\t    ||||~QUEENPET~||||");
 			printf("\n\n\t\t\t\t~|Help - Daftar Penyakit|~");
 			printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\t\t\t\t1. Ringan : penyakit kulit,\n");
 			printf("\t\t\t\t   luka ringan, bersin\n");
 			printf("\t\t\t\t2. Sedang : cacingan, diare, \n");
 			printf("\t\t\t\t   luka dalam\n");
-			printf("\t\t\t\t3. Berat : gangguan kerongkongan\n");
-			printf("\t\t\t\t   yang mengeluarkan lendir yang \n");
-			printf("\t\t\t\t   berbau busuk, kuning, terkena virus \n");
+			printf("\t\t\t\t3. Berat : gangguan \n");
+			printf("\t\t\t\t   kerongkongan yang  \n");
+			printf("\t\t\t\t   mengeluarkan lendir yang \n");
+			printf("\t\t\t\t   berbau busuk, kuning, \n");
+			printf("\t\t\t\t   terkena virus\n");
 			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\n type anything to return : ");
 	    	scanf("%s",&a);
