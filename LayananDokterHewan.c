@@ -18,6 +18,20 @@ void set(Queue *Q);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
 int HitungPrioritas(char temp[10][255]);
+void printPenyakit(data temp);
+
+void printPenyakit(data buff){
+	int i;
+	printf("Nama Penyakit : ");
+	for(i=0; i<10; i++){
+		printf("%s", buff.dataPenyakit[i]);	
+		if(strcmp(buff.dataPenyakit[i+1],"Kosong")==0){
+			break;
+		}
+		printf(", ");
+	}
+}
+
 
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
@@ -78,7 +92,8 @@ void tambahPendaftar(Queue *Q){
 	//Kamus
 	data customer;
 	NodeQueue *p;
-	
+	int i;
+	char temp;
 	//Algoritma
 	p = Q->Rear;
 	
@@ -88,8 +103,11 @@ void tambahPendaftar(Queue *Q){
 	scanf("%[^\n]c", customer.nama);
 	printf("Waktu Datang : ");
 	scanf("%d", &customer.waktuKedatangan);
-	int i;
-	char temp;
+	
+	for(i=0; i<10; i++){
+		strcpy(customer.dataPenyakit[i],"Kosong");
+	}
+	
 	for(i=0; i<10; i++){
 		printf("Nama Penyakit %d : ", i+1);
 		fflush(stdin);
@@ -132,7 +150,18 @@ void tampilPendaftar(Queue Q){
 }
 
 void panggilPendaftar(Queue *myQueue){
-	
+	data temp;
+	temp.prioritas = 6;
+	deQueue(myQueue, &temp);
+	if(temp.prioritas>5){
+		puts("Pendaftar masih kosong!");
+	}else{
+		puts("~~Memanggil Antrian~~");
+		printf("Nama : %s\n", temp.nama);
+		printPenyakit(temp);
+	}
+	printf("\nPress any key to continue.. ");
+	getch();
 }
 
 void help(){
