@@ -102,10 +102,15 @@ void tambahPendaftar(Queue *Q){
 		printf("Nama Penyakit %d : ", i+1);
 		fflush(stdin);
 		scanf("%[^\n]c", customer.dataPenyakit[i]);
-		
-		fflush(stdin);
-		printf("Apakah ada penyakit lain? (y/n): ");
-		scanf("%c", &temp);
+		do{
+			fflush(stdin);
+			printf("Apakah ada penyakit lain? (y/n): ");
+			scanf("%c", &temp);
+			if(temp=='y'||temp=='n'||temp=='Y'||temp=='N'){
+				break;
+			}
+			puts("inputan salah!!");
+		}while(true);
 		if(temp=='n'||temp=='N'){
 			i+=10;
 		}
