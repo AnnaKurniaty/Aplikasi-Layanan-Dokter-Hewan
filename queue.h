@@ -28,8 +28,7 @@ typedef struct{
 	int waktuKedatangan; 
 	char nama[255]; //Nama majikan
 	char dataPenyakit[10][255]; //Daftar Nama Penyakit 
-	char kategoriPenyakit[10]; //Berisi R = Ringan || S = Sedang || B = Berat
-	//boolean kategoriPenyakit[3];  //Kategori Penyakit || indeks 0 true == ringan || indeks 1 true == sedang || indeks 2 true == Berat
+	char kategoriPenyakit[10]; //Berisi Ringan || Sedang || Berat
 	int WaktuPelayanan; //Waktu estimasi Pelayanan
 	int WaktuMulai; //Waktu estimasi mulai Pemeriksaan
 	int WaktuSelesai; //Waktu selesai Pemeriksaan
@@ -94,5 +93,10 @@ void deQueue(Queue *Q, infotypeQueue *data);
 int NBElmt(Queue Q); 
 
 boolean waktuTercepat(Queue data, int waktu);
+
 void PrintQueue(Queue data);
+
+void PrintFormat(Queue data);
+
+void printPenyakit(data buff);
 #endif // QUEUE_H

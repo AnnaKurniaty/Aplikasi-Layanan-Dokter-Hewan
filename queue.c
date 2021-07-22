@@ -106,38 +106,19 @@ int NBElmt(Queue Q){
     }
     return i;
 }
-/*
-boolean waktuTercepat(Queue data, int waktu){
-	NodeQueue *P;
-    P = data.Front;
-    if(P==NULL){
-    	return false;
-	}else{
-		while(P!=NULL){
-			if(!P->info.sudahDilayani){
-				if(P->info.waktuKedatangan<waktu){
-					return false;
-				}
-			}
-			P = P->next;
-		}	
-	}
-	return true;
-}*/
 
 void PrintQueue(Queue data){
 	//Kamus
 	NodeQueue *p;
 	int i = 1;
 	//Algoritma
-	puts("Simulasi Program Check-in - Queue");
+	puts("Data Pendaftar Layanan Dokter Hewan - Queue");
 	puts("================================================");
-	puts("No Nama \t Waktu Datang \t Kategori   Wpelayanan Wpemerikasaan Wselesai");
+	puts("No Nama \t Waktu Datang \t Kategori  Penyakit  Wpelayanan  Wpemerikasaan  Wselesai  Prioritas");
 	if(!IsQueueEmpty(data)){
 		p = data.Front;
 		while (p != nil){
-			//printf("%d. %s \t %d \t\t %d \t\t %d \t\t %d\n", i, p->info.nama, p->info.Wdatang, p->info.jumlahKoper,  p->info.Wmengantri, p->info.Wselesai);
-			printf("%d. %s \t %d  %s       %d     %d    %d     %d\n", i, p->info.nama, p->info.waktuKedatangan, p->info.dataPenyakit[0], p->info.WaktuPelayanan, p->info.WaktuMulai,p->info.WaktuSelesai, p->info.prioritas);
+			printf("%d. %s \t %d   %s    %s    %d     %d     %d     %d\n", i, p->info.nama, p->info.waktuKedatangan, p->info.kategoriPenyakit, p->info.dataPenyakit[0], p->info.WaktuPelayanan, p->info.WaktuMulai, p->info.WaktuSelesai, p->info.prioritas);
 			i++;
 			p = next(p);
 		}
@@ -149,3 +130,44 @@ void PrintQueue(Queue data){
 	getch();
 }
 
+void PrintFormat(Queue data){
+	//Kamus
+	NodeQueue *p;
+	int i = 1;
+	//Algoritma
+	puts("Data Pendaftar Layanan Dokter Hewan - Queue");
+	puts("================================================");
+	if(!IsQueueEmpty(data)){
+		p = data.Front;
+		while (p != nil){
+			printf("%d. %s \n", i, p->info.nama);
+			printf("Waktu Datang : %d\n", p->info.waktuKedatangan);
+			printf("Kategori : %s\n", p->info.kategoriPenyakit);
+			printPenyakit(p->info);
+			printf("Waktu Pelayanan : %d\n", p->info.WaktuPelayanan);
+			printf("Waktu Mulai Pemeriksaan : %d\n", p->info.WaktuMulai);
+			printf("Waktu Selesai : %d\n",  p->info.WaktuSelesai);
+			printf("Prioritas : %d\n\n",  p->info.prioritas);
+			i++;
+			p = next(p);
+		}
+	}
+	if(i==1){
+		printf("[ Antrian masih kosong ]\n");
+	}
+	printf("Press any key to continue.. ");
+	getch();
+}
+
+void printPenyakit(data buff){
+	int i;
+	printf("Nama Penyakit : ");
+	for(i=0; i<10; i++){
+		printf("%s", buff.dataPenyakit[i]);	
+		if(strcmp(buff.dataPenyakit[i+1],"Kosong")==0){
+			break;
+		}
+		printf(", ");
+	}
+	printf("\n");
+}

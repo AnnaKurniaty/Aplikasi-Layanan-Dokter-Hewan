@@ -18,20 +18,6 @@ void set(Queue *Q, int checkpoints);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
 int HitungPrioritas(char temp[10][255]);
-void printPenyakit(data temp);
-
-void printPenyakit(data buff){
-	int i;
-	printf("Nama Penyakit : ");
-	for(i=0; i<10; i++){
-		printf("%s", buff.dataPenyakit[i]);	
-		if(strcmp(buff.dataPenyakit[i+1],"Kosong")==0){
-			break;
-		}
-		printf(", ");
-	}
-}
-
 
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
@@ -42,7 +28,10 @@ int HitungWaktuPelayanan(char temp[10][255]){
 			return 45;
 		}else if(strcmp(temp[i],"terkena virus")==0){
 			return 45;
-		}else if(strcmp(temp[i],"cacingan")==0){
+		}
+	}
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"cacingan")==0){
 			return 30;
 		}else if(strcmp(temp[i],"diare")==0){
 			return 30;
@@ -50,6 +39,7 @@ int HitungWaktuPelayanan(char temp[10][255]){
 			return 30;
 		}
 	}
+	
 	return 15;
 }
 
@@ -138,6 +128,14 @@ void tambahPendaftar(Queue *Q){
 		}
 	}
 	customer.prioritas = HitungPrioritas(customer.dataPenyakit);
+	if(customer.WaktuPelayanan==45){
+		strcpy(customer.kategoriPenyakit,"Berat"); 
+	}else if(customer.WaktuPelayanan==30){
+		strcpy(customer.kategoriPenyakit,"Sedang"); 
+	}else{
+		strcpy(customer.kategoriPenyakit,"Ringan"); 	
+	}
+			
 	//Memasukkan ke antrian
 	enQueue(Q,customer);
 	
@@ -146,7 +144,23 @@ void tambahPendaftar(Queue *Q){
 }
 
 void tampilPendaftar(Queue Q){
-	PrintQueue(Q);
+	char choice;
+	
+	do{
+		system("cls");
+		puts("Tampil Pendaftar");
+		puts("1. Bentuk Tabel");
+		puts("2. Bentuk List");
+		puts("3. Kembali ke Main Menu");
+		printf("Masukkan Pilihan: ");
+		fflush(stdin);
+		scanf("%c", &choice);
+		if(choice=='1'){
+			PrintQueue(Q);
+		}else if(choice=='2'){
+			PrintFormat(Q);
+		}
+	}while(choice!='3');
 }
 
 void panggilPendaftar(Queue *myQueue, int *checkpoints){
