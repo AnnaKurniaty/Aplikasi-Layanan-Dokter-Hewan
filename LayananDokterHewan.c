@@ -11,10 +11,10 @@
 */
 void tambahPendaftar(Queue *Q);
 void tampilPendaftar(Queue myQueue);
-void panggilPendaftar(Queue *myQueue);
+void panggilPendaftar(Queue *myQueue, int *checkpoints );
 void help();
 void credit();
-void set(Queue *Q);
+void set(Queue *Q, int checkpoints);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
 int HitungPrioritas(char temp[10][255]);
@@ -125,7 +125,7 @@ void tambahPendaftar(Queue *Q){
 	customer.WaktuPelayanan = HitungWaktuPelayanan(customer.dataPenyakit);
 	if(p==nil){
 		customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
-		customer.WaktuMulai = 0;
+		customer.WaktuMulai = customer.waktuKedatangan;
 	}
 	
 	if(p!=nil){
@@ -149,7 +149,7 @@ void tampilPendaftar(Queue Q){
 	PrintQueue(Q);
 }
 
-void panggilPendaftar(Queue *myQueue){
+void panggilPendaftar(Queue *myQueue, int *checkpoints){
 	data temp;
 	temp.prioritas = 6;
 	deQueue(myQueue, &temp);
@@ -159,6 +159,7 @@ void panggilPendaftar(Queue *myQueue){
 		puts("~~Memanggil Antrian~~");
 		printf("Nama : %s\n", temp.nama);
 		printPenyakit(temp);
+		*checkpoints = temp.WaktuSelesai;
 	}
 	printf("\nPress any key to continue.. ");
 	getch();
@@ -270,13 +271,48 @@ void sort(Queue *Q){
 	}
 }
 
-void set(Queue *Q){
+void set(Queue *Q, int checkpoints){
+	//Kamus Data
+	NodeQueue *p, *buff;
+	data temp;
 	
+	p = Q->Front;
+	if(p==NULL || p->next==NULL){
+ 		return;
+	}
+	
+	//Set Waktu mulai Pemeriksaan dan Waktu Selesai; 	
+	if(checkpoints==0){
+		p->info.WaktuMulai = p->info.waktuKedatangan;
+		p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;	
+	}else{
+		if(checkpoints > p->info.waktuKedatangan){
+			p->info.WaktuMulai = checkpoints;
+			p->info.WaktuSelesai = checkpoints + p->info.WaktuPelayanan;
+		}else{
+			p->info.WaktuMulai = p->info.waktuKedatangan;
+			p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;
+		}	
+	}
+	buff = p;
+	p = p->next;
+	while(p!=NULL){
+		if(buff->info.WaktuSelesai > p->info.waktuKedatangan){
+			p->info.WaktuMulai = buff->info.WaktuSelesai;
+			p->info.WaktuSelesai = buff->info.WaktuSelesai + p->info.WaktuPelayanan;
+		}else{
+			p->info.WaktuMulai = p->info.waktuKedatangan;
+			p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;
+		}
+		buff = buff->next;
+		p = p->next;
+	}
 }
 
 
 int main(){
 	char choice;
+	int checkpoint = 0;
 	Queue myQueue;
 	CreateQueue(&myQueue);
 	do{
@@ -295,10 +331,10 @@ int main(){
 			tambahPendaftar(&myQueue);
 		}else if(choice=='2'){
 			sort(&myQueue);
-			set(&myQueue);
+			set(&myQueue, checkpoint);
 			tampilPendaftar(myQueue);	
 		}else if(choice=='3'){
-			panggilPendaftar(&myQueue);
+			panggilPendaftar(&myQueue, &checkpoint);
 		}else if(choice=='4'){
 			help();
 		}else if(choice=='5'){
