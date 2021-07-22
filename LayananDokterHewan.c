@@ -11,12 +11,27 @@
 */
 void tambahPendaftar(Queue *Q);
 void tampilPendaftar(Queue myQueue);
-void panggilPendaftar(Queue *myQueue);
+void panggilPendaftar(Queue *myQueue, int *checkpoints );
 void help();
 void credit();
-
+void set(Queue *Q, int checkpoints);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
+int HitungPrioritas(char temp[10][255]);
+void printPenyakit(data temp);
+
+void printPenyakit(data buff){
+	int i;
+	printf("Nama Penyakit : ");
+	for(i=0; i<10; i++){
+		printf("%s", buff.dataPenyakit[i]);	
+		if(strcmp(buff.dataPenyakit[i+1],"Kosong")==0){
+			break;
+		}
+		printf(", ");
+	}
+}
+
 
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
@@ -38,11 +53,47 @@ int HitungWaktuPelayanan(char temp[10][255]){
 	return 15;
 }
 
+int HitungPrioritas(char temp[10][255]){
+	int i;
+	int tempSedang = 0;
+	int tempRingan = 0;
+	
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+			return 4;
+		}else if(strcmp(temp[i],"kuning")==0){
+			return 4;
+		}else if(strcmp(temp[i],"terkena virus")==0){
+			return 4;	
+		}else if(strcmp(temp[i],"cacingan")==0){
+			tempSedang++;
+		}else if(strcmp(temp[i],"diare")==0){
+			tempSedang++;
+		}else if(strcmp(temp[i],"luka dalam")==0){
+			tempSedang++;
+		}else if(strcmp(temp[i],"penyakit kulit")==0){
+			tempRingan++;
+		}else if(strcmp(temp[i],"luka ringan")==0){
+			tempRingan++;
+		}else if(strcmp(temp[i],"bersin")==0){
+			tempRingan++;
+		}
+	}
+	if(tempSedang>=2){
+		return 3;
+	}else if(tempRingan>=3){
+		return 2;
+	}
+	return 1;
+}
+
+
 void tambahPendaftar(Queue *Q){
 	//Kamus
 	data customer;
 	NodeQueue *p;
-	
+	int i;
+	char temp;
 	//Algoritma
 	p = Q->Rear;
 	
@@ -52,8 +103,11 @@ void tambahPendaftar(Queue *Q){
 	scanf("%[^\n]c", customer.nama);
 	printf("Waktu Datang : ");
 	scanf("%d", &customer.waktuKedatangan);
-	int i;
-	char temp;
+	
+	for(i=0; i<10; i++){
+		strcpy(customer.dataPenyakit[i],"Kosong");
+	}
+	
 	for(i=0; i<10; i++){
 		printf("Nama Penyakit %d : ", i+1);
 		fflush(stdin);
@@ -71,7 +125,7 @@ void tambahPendaftar(Queue *Q){
 	customer.WaktuPelayanan = HitungWaktuPelayanan(customer.dataPenyakit);
 	if(p==nil){
 		customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
-		customer.WaktuMulai = 0;
+		customer.WaktuMulai = customer.waktuKedatangan;
 	}
 	
 	if(p!=nil){
@@ -83,7 +137,7 @@ void tambahPendaftar(Queue *Q){
 			customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
 		}
 	}
-	
+	customer.prioritas = HitungPrioritas(customer.dataPenyakit);
 	//Memasukkan ke antrian
 	enQueue(Q,customer);
 	
@@ -95,8 +149,20 @@ void tampilPendaftar(Queue Q){
 	PrintQueue(Q);
 }
 
-void panggilPendaftar(Queue *myQueue){
-	
+void panggilPendaftar(Queue *myQueue, int *checkpoints){
+	data temp;
+	temp.prioritas = 6;
+	deQueue(myQueue, &temp);
+	if(temp.prioritas>5){
+		puts("Pendaftar masih kosong!");
+	}else{
+		puts("~~Memanggil Antrian~~");
+		printf("Nama : %s\n", temp.nama);
+		printPenyakit(temp);
+		*checkpoints = temp.WaktuSelesai;
+	}
+	printf("\nPress any key to continue.. ");
+	getch();
 }
 
 void help(){
@@ -172,12 +238,81 @@ void credit(){
 }
 
 void sort(Queue *Q){
+	//Kamus Data
+	NodeQueue *p, *buff;
+	data temp;
+	int i;
 	
+	//Algoritma
+	p = Q->Front;
+	if(p==NULL || p->next==NULL){
+ 		return;
+	}
+	p = p->next;
+	while(p->next!=NULL){
+		buff = p->next;
+		while(buff!=NULL){
+			if(p->info.WaktuSelesai > buff->info.waktuKedatangan){
+				if(p->info.prioritas < buff->info.prioritas){
+					temp = p->info;
+					p->info = buff->info;
+					buff->info = temp;
+				}else if(p->info.prioritas == buff->info.prioritas){
+					if(p->info.waktuKedatangan > buff->info.waktuKedatangan){
+						temp = p->info;
+						p->info = buff->info;
+						buff->info = temp;
+					}
+				}
+			}
+			buff = buff->next;
+		}
+		p = p->next; 
+	}
+}
+
+void set(Queue *Q, int checkpoints){
+	//Kamus Data
+	NodeQueue *p, *buff;
+	data temp;
+	
+	p = Q->Front;
+	if(p==NULL || p->next==NULL){
+ 		return;
+	}
+	
+	//Set Waktu mulai Pemeriksaan dan Waktu Selesai; 	
+	if(checkpoints==0){
+		p->info.WaktuMulai = p->info.waktuKedatangan;
+		p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;	
+	}else{
+		if(checkpoints > p->info.waktuKedatangan){
+			p->info.WaktuMulai = checkpoints;
+			p->info.WaktuSelesai = checkpoints + p->info.WaktuPelayanan;
+		}else{
+			p->info.WaktuMulai = p->info.waktuKedatangan;
+			p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;
+		}	
+	}
+	buff = p;
+	p = p->next;
+	while(p!=NULL){
+		if(buff->info.WaktuSelesai > p->info.waktuKedatangan){
+			p->info.WaktuMulai = buff->info.WaktuSelesai;
+			p->info.WaktuSelesai = buff->info.WaktuSelesai + p->info.WaktuPelayanan;
+		}else{
+			p->info.WaktuMulai = p->info.waktuKedatangan;
+			p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;
+		}
+		buff = buff->next;
+		p = p->next;
+	}
 }
 
 
 int main(){
 	char choice;
+	int checkpoint = 0;
 	Queue myQueue;
 	CreateQueue(&myQueue);
 	do{
@@ -196,9 +331,10 @@ int main(){
 			tambahPendaftar(&myQueue);
 		}else if(choice=='2'){
 			sort(&myQueue);
+			set(&myQueue, checkpoint);
 			tampilPendaftar(myQueue);	
 		}else if(choice=='3'){
-			panggilPendaftar(&myQueue);
+			panggilPendaftar(&myQueue, &checkpoint);
 		}else if(choice=='4'){
 			help();
 		}else if(choice=='5'){
