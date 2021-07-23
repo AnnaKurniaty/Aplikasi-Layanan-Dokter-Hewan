@@ -206,7 +206,8 @@ void help(){
 		printf("\t\t\t\t3. Exit \n");
 		printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 		printf("\n Enter Menu : ");
-	    scanf("%s",&pilih);
+		fflush(stdin);
+	    scanf("%c",&pilih);
 	    if ( pilih == '1' ){
 	    	system("cls");
 	    	printf("\n\t\t\t\t    ||||~QUEENPET~||||");
@@ -223,7 +224,8 @@ void help(){
 			printf("\t\t\t\t   penyakit ringan - 2 \n");
 			printf("\t\t\t\t4. Waktu kedatangan - 1\n");
 			printf("\n type anything to return : ");
-	    	scanf("%s",&a);
+			fflush(stdin);
+	    	scanf("%c",&a);
 			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 		}else if ( pilih == '2' ){
 			system("cls");
@@ -241,7 +243,8 @@ void help(){
 			printf("\t\t\t\t   terkena virus\n");
 			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\n type anything to return : ");
-	    	scanf("%s",&a);
+			fflush(stdin);
+	    	scanf("%c",&a);
 	    }
 	}while(pilih != '3');
 }
