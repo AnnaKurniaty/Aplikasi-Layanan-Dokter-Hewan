@@ -18,6 +18,7 @@ void set(Queue *Q, int checkpoints);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
 int HitungPrioritas(char temp[10][255]);
+void header();
 
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
@@ -88,28 +89,32 @@ void tambahPendaftar(Queue *Q){
 	p = Q->Rear;
 	
 	//Input data antrian
-	printf("Nama         : ");
+	system("cls");
+	printf("\n\t\t\t\t\t    |~|~|~|~QUEENPET~|~|~|~|");
+	printf("\n\n\t\t\t\t\t    ~|Masukan Data Antrian|~");
+	printf("\n\n\t\t\t\t>>>------------------------------------------<<<\n\n");
+	printf("\t\t\t\t\tNama            : ");
 	fflush(stdin);
 	scanf("%[^\n]c", customer.nama);
-	printf("Waktu Datang : ");
+	printf("\t\t\t\t\tWaktu Datang    : ");
 	scanf("%d", &customer.waktuKedatangan);
-	
+
 	for(i=0; i<10; i++){
 		strcpy(customer.dataPenyakit[i],"Kosong");
 	}
 	
 	for(i=0; i<10; i++){
-		printf("Nama Penyakit %d : ", i+1);
+		printf("\t\t\t\t\tNama Penyakit %d : ", i+1);
 		fflush(stdin);
 		scanf("%[^\n]c", customer.dataPenyakit[i]);
 		do{
 			fflush(stdin);
-			printf("Apakah ada penyakit lain? (y/n): ");
+			printf("\n\t\t\t\t\tApakah ada penyakit lain? (y/n): ");
 			scanf("%c", &temp);
 			if(temp=='y'||temp=='n'||temp=='Y'||temp=='N'){
 				break;
 			}
-			puts("inputan salah!!");
+			puts("\n\t\t\t\t\t   inputan salah!!");
 		}while(true);
 		if(temp=='n'||temp=='N'){
 			i+=10;
@@ -144,7 +149,8 @@ void tambahPendaftar(Queue *Q){
 	//Memasukkan ke antrian
 	enQueue(Q,customer);
 	
-	printf("Press any key to continue.. ");
+	printf("\n\n\t\t\t\t>>>------------------------------------------<<<\n\n");
+	printf("\n\t\t\t\t\tPress any key to continue.. ");
 	getch();
 }
 
@@ -153,11 +159,14 @@ void tampilPendaftar(Queue Q){
 	
 	do{
 		system("cls");
-		puts("Tampil Pendaftar");
-		puts("1. Bentuk Tabel");
-		puts("2. Bentuk List");
-		puts("3. Kembali ke Main Menu");
-		printf("Masukkan Pilihan: ");
+		printf("\n\t\t\t\t\t\t     |~|~|~|~QUEENPET~|~|~|~|");
+		printf("\n\n\t\t\t\t\t\t       ~|Tampil Pendaftar|~");
+		printf("\n\n\t\t\t\t\t>>>------------------------------------------<<<\n\n");
+		puts("\t\t\t\t\t\t      1. Bentuk Tabel");
+		puts("\t\t\t\t\t\t      2. Bentuk List");
+		puts("\t\t\t\t\t\t      3. Kembali ke Main Menu");
+		printf("\n\t\t\t\t\t>>>------------------------------------------<<<\n\n");
+		printf("\t\t\t\t\t\t      Masukkan Pilihan: ");
 		fflush(stdin);
 		scanf("%c", &choice);
 		if(choice=='1'){
@@ -173,14 +182,14 @@ void panggilPendaftar(Queue *myQueue, int *checkpoints){
 	temp.prioritas = 6;
 	deQueue(myQueue, &temp);
 	if(temp.prioritas>5){
-		puts("Pendaftar masih kosong!");
+		puts("\t\t\t\t\tPendaftar masih kosong!");
 	}else{
-		puts("~~Memanggil Antrian~~");
-		printf("Nama : %s\n", temp.nama);
+		puts("\t\t\t\t\t~~Memanggil Antrian~~");
+		printf("\t\t\t\t\tNama : %s\n", temp.nama);
 		printPenyakit(temp);
 		*checkpoints = temp.WaktuSelesai;
 	}
-	printf("\nPress any key to continue.. ");
+	printf("\n\t\t\t\t\tPress any key to continue.. ");
 	getch();
 }
 
@@ -328,6 +337,12 @@ void set(Queue *Q, int checkpoints){
 	}
 }
 
+void header(){
+	printf("\n\t\t\t\t__________________________________________");
+	printf("\n\t\t\t\t|Selamat Datang pada Layanan Dokter Hewan|");
+	printf("\n\t\t\t\t|               QUEENPET                 |");
+	printf("\n\t\t\t\t|________________________________________|\n");
+}
 
 int main(){
 	char choice;
@@ -336,14 +351,19 @@ int main(){
 	CreateQueue(&myQueue);
 	do{
 		system("cls");
-		printf("Program Layanan Dokter Hewan\n");
-		printf("1. Tambah Pendaftar\n");
-		printf("2. Tampilkan Pendaftar\n");
-		printf("3. Panggil Pendaftar\n");
-		printf("4. Help\n");
-		printf("5. Credit\n");
-		printf("6. Keluar\n");
-		printf("Masukkan Pilihan: ");
+		header();
+		printf("\n\t\t\t\t     _________________________________\n");
+		printf("\t\t\t\t     |\t\t\t\t     |\n");
+		printf("\t\t\t\t     |\tProgram Layanan Dokter Hewan |\n");
+		printf("\t\t\t\t     |\t\t\t\t     |\n");
+		printf("\t\t\t\t     |\t1. Tambah Pendaftar\t     |\n");
+		printf("\t\t\t\t     |\t2. Tampilkan Pendaftar\t     |\n");
+		printf("\t\t\t\t     |\t3. Panggil Pendaftar\t     |\n");
+		printf("\t\t\t\t     |\t4. Help\t\t\t     |\n");
+		printf("\t\t\t\t     |\t5. Credit\t\t     |\n");
+		printf("\t\t\t\t     |\t6. Keluar\t\t     |\n");
+		printf("\t\t\t\t     |_______________________________|\n");
+		printf("\t\t\t\t\tMasukkan Pilihan: ");
 		fflush(stdin);
 		scanf("%c", &choice);
 		if(choice=='1'){
