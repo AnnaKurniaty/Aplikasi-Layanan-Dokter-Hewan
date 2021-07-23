@@ -210,7 +210,7 @@ void help(){
 	    if ( pilih == '1' ){
 	    	system("cls");
 	    	printf("\n\t\t\t\t    ||||~QUEENPET~||||");
-			printf("\n\n\t\t\t\t  |Help - Aturan Prioritas|");
+			printf("\n\n\t\t\t\t |Help - Aturan Prioritas|");
 			printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\t\t\t\tParameter urutan prioritas \n");
 			printf("\t\t\t\tditentukan dengan nilai \n");
@@ -250,11 +250,11 @@ void credit(){
 	char kembali='0';
 	system("cls");
 	do{
-		printf("\n\t\t\t\t|~|~|~|~TIC TAC TOE~|~|~|~|");
+		printf("\n\t\t\t\t    ||||~QUEENPET~||||");
 		printf("\n\n\t\t\t\t\t~|Credits|~");
 		printf("\n\n\t\t\t\t>>>---------------------<<<\n\n");
 		printf("\t\t\t\t Anna Kurniaty \n");
-		printf("\t\t\t\t Dimas Wisnu Saputro \n\n");
+		printf("\t\t\t\t Dimas Wisnu Saputro \n");
 		printf("\t\t\t\t Hasanah \n\n");
 		printf("\t\t\t\t D4 - Teknik Informatika \n");
 		printf("\t\t\t\t JTK 2020 \n");
