@@ -92,11 +92,18 @@ void deQueue(Queue *Q, infotypeQueue *data);
 */ 
 int NBElmt(Queue Q); 
 
-boolean waktuTercepat(Queue data, int waktu);
-
+/* Deskripsi : Modul ini berfungsi untuk menampilkan keseluruhan data pendaftar berupa tabel 
+   Autor : Anna K
+*/ 
 void PrintQueue(Queue data);
 
+/* Deskripsi : Modul ini berfungsi untuk menampilkan keseluruhan data pendaftar berupa Format
+   Autor : Hasanah
+*/
 void PrintFormat(Queue data);
 
+/* Deskripsi : Modul untuk menampilkan penyakit pasien 
+   Autor : Anna K
+*/
 void printPenyakit(data buff);
 #endif // QUEUE_H

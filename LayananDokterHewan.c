@@ -20,6 +20,13 @@ int HitungWaktuPelayanan(char temp[10][255]);
 int HitungPrioritas(char temp[10][255]);
 void header();
 
+
+/* 
+	Deskripsi : Modul untuk menghitung waktu pelayanan yang sudah di set berdasarkan kategori penyakit 
+   Autor : Dimas W S
+   
+*/
+   
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
 	for(i=0; i<10; i++){
@@ -43,6 +50,13 @@ int HitungWaktuPelayanan(char temp[10][255]){
 	
 	return 15;
 }
+
+
+/* 
+	Deskripsi : Modul ini berfungsi untuk memprioritaskan data pasien sesuai kategori penyakit yaitu berat sedang dan ringan 
+	Autor : Hasanah
+	
+*/
 
 int HitungPrioritas(char temp[10][255]){
 	int i;
@@ -78,6 +92,11 @@ int HitungPrioritas(char temp[10][255]){
 	return 1;
 }
 
+/* 
+	Deskripsi : Modul untuk menambahkan data pendaftar
+    Autor : Dimas W S
+    
+*/
 
 void tambahPendaftar(Queue *Q){
 	//Kamus
@@ -154,6 +173,10 @@ void tambahPendaftar(Queue *Q){
 	getch();
 }
 
+/* Deskripsi : Modul untuk menampilkan data pendaftar 
+   Autor : Dimas W S
+*/
+
 void tampilPendaftar(Queue Q){
 	char choice;
 	
@@ -177,6 +200,10 @@ void tampilPendaftar(Queue Q){
 	}while(choice!='3');
 }
 
+/* Deskripsi : Modul untuk memanggil data pendaftar
+   Autor : Anna K
+*/
+
 void panggilPendaftar(Queue *myQueue, int *checkpoints){
 	data temp;
 	temp.prioritas = 6;
@@ -192,6 +219,10 @@ void panggilPendaftar(Queue *myQueue, int *checkpoints){
 	printf("\n\t\t\t\t\tPress any key to continue.. ");
 	getch();
 }
+
+/* Deskripsi : Modul untuk menampilkan data help 
+   Autor : Anna K
+*/
 
 void help(){
 	char pilih='0';
@@ -249,6 +280,10 @@ void help(){
 	}while(pilih != '3');
 }
 
+/* Deskripsi : Modul untuk menampilkan data Credit
+   Autor : Credit
+*/
+
 void credit(){
 	char kembali='0';
 	system("cls");
@@ -267,6 +302,11 @@ void credit(){
 		}
 	while(kembali != '1');
 }
+
+/* Inisial state :
+   final state
+   Autor : 
+*/
 
 void sort(Queue *Q){
 	//Kamus Data
@@ -301,6 +341,11 @@ void sort(Queue *Q){
 		p = p->next; 
 	}
 }
+
+/* Inisial state :
+   final state
+   Autor : 
+*/
 
 void set(Queue *Q, int checkpoints){
 	//Kamus Data
@@ -340,12 +385,22 @@ void set(Queue *Q, int checkpoints){
 	}
 }
 
+/* Inisial state :
+   final state
+   Autor : 
+*/
+
 void header(){
 	printf("\n\t\t\t\t__________________________________________");
 	printf("\n\t\t\t\t|Selamat Datang pada Layanan Dokter Hewan|");
 	printf("\n\t\t\t\t|               QUEENPET                 |");
 	printf("\n\t\t\t\t|________________________________________|\n");
 }
+
+/* Inisial state :
+   final state
+   Autor : 
+*/
 
 int main(){
 	char choice;

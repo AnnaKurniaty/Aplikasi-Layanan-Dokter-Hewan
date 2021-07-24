@@ -107,6 +107,11 @@ int NBElmt(Queue Q){
     return i;
 }
 
+/*
+    Deskripsi : Modul ini berfungsi untuk menampilkan keseluruhan data pendaftar berupa tabel 
+    Autor : Anna K
+*/ 
+
 void PrintQueue(Queue data){
 	//Kamus
 	NodeQueue *p;
@@ -129,6 +134,11 @@ void PrintQueue(Queue data){
 	printf("\n\t\t\t\t\t\tPress any key to continue.. ");
 	getch();
 }
+
+/*
+   Deskripsi : Modul ini berfungsi untuk menampilkan keseluruhan data pendaftar berupa Format
+   Autor : Hasanah
+*/
 
 void PrintFormat(Queue data){
 	//Kamus
@@ -158,6 +168,11 @@ void PrintFormat(Queue data){
 	printf("\t\t\t\t\tPress any key to continue.. ");
 	getch();
 }
+
+/*
+	Deskripsi : Modul untuk menampilkan penyakit pasien 
+	Autor : Anna K
+*/
 
 void printPenyakit(data buff){
 	int i;
