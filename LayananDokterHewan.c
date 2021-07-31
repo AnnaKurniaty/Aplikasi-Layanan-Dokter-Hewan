@@ -281,7 +281,7 @@ void help(){
 }
 
 /* Deskripsi : Modul untuk menampilkan data Credit
-   Autor : Credit
+   Autor : hasanah
 */
 
 void credit(){
@@ -303,9 +303,9 @@ void credit(){
 	while(kembali != '1');
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+/* 
+	Deskripsi : Modul untuk mengurutkan queue berdasarkan prioritas
+	Autor : Dimas W S
 */
 
 void sort(Queue *Q){
@@ -342,9 +342,9 @@ void sort(Queue *Q){
 	}
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+/* 
+	Deskripsi : Modul ini berfungsi untuk menghitung waktu mulai pemeriksaan hingga waktu selesai pasien
+	Autor : Dimas W S
 */
 
 void set(Queue *Q, int checkpoints){
@@ -385,9 +385,9 @@ void set(Queue *Q, int checkpoints){
 	}
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+/* 
+	Deskripsi : Modul untuk menampilkan tampilan di main menu
+	Autor : Anna K
 */
 
 void header(){
@@ -397,9 +397,10 @@ void header(){
 	printf("\n\t\t\t\t|________________________________________|\n");
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+/* 
+	Deskripsi : Modul untuk menjalankan program
+	Autor : Hasanah
+
 */
 
 int main(){
