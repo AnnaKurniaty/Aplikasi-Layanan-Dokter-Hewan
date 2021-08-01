@@ -136,7 +136,7 @@ void PrintQueue(Queue data){
 }
 
 /*
-   Deskripsi : Modul ini berfungsi untuk menampilkan keseluruhan data pendaftar berupa Format
+   Deskripsi : Modul ini berfungsi untuk menampilkan keseluruhan data pendaftar berupa Format List
    Autor : Hasanah
 */
 

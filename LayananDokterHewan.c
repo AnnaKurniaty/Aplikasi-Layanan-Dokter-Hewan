@@ -29,6 +29,7 @@ void header();
    
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
+	//Mengembalikan 45 menit jika pada daftar penyakit terdapat penyakit dengan kategori berat
 	for(i=0; i<10; i++){
 		if(strcmp(temp[i],"gangguan kerongkongan")==0){
 			return 45;
@@ -38,6 +39,7 @@ int HitungWaktuPelayanan(char temp[10][255]){
 			return 45;
 		}
 	}
+	//Mengembalikan 30 menit jika pada daftar penyakit terdapat penyakit dengan kategori sedang
 	for(i=0; i<10; i++){
 		if(strcmp(temp[i],"cacingan")==0){
 			return 30;
@@ -47,13 +49,13 @@ int HitungWaktuPelayanan(char temp[10][255]){
 			return 30;
 		}
 	}
-	
+	//Mengembalikan 15 menit jika pada daftar penyakit terdapat penyakit dengan kategori ringan atau tidak ada terdaftar di kategori
 	return 15;
 }
 
 
 /* 
-	Deskripsi : Modul ini berfungsi untuk memprioritaskan data pasien sesuai kategori penyakit yaitu berat sedang dan ringan 
+	Deskripsi : Modul ini berfungsi untuk menghitung poin prioritas pada data pasien sesuai kategori penyakit yaitu, berat, sedang, dan ringan 
 	Autor : Hasanah
 	
 */
@@ -62,7 +64,9 @@ int HitungPrioritas(char temp[10][255]){
 	int i;
 	int tempSedang = 0;
 	int tempRingan = 0;
-	
+	//Mengembalikan langsung 4 poin apabila terdapat penyakit dengan kategori berat
+	//Jika terdapat penyakit dengan kategori ringan, jumlah penyakit akan disimpan di tempRingan
+	//Jika terdapat penyakit dengan kategori sedang, jumlah penyakit akan disimpan di tempSedang
 	for(i=0; i<10; i++){
 		if(strcmp(temp[i],"gangguan kerongkongan")==0){
 			return 4;
@@ -84,6 +88,8 @@ int HitungPrioritas(char temp[10][255]){
 			tempRingan++;
 		}
 	}
+	//Mengembalikan 3 poin apabila terdapat penyakit dengan kategori sedang dengan jumlah 2 atau lebih
+	//Mengembalikan 2 poin apabila terdapat penyakit dengan kategori ringan dengan jumlah 3 atau lebih
 	if(tempSedang>=2){
 		return 3;
 	}else if(tempRingan>=3){
@@ -117,7 +123,8 @@ void tambahPendaftar(Queue *Q){
 	scanf("%[^\n]c", customer.nama);
 	printf("\t\t\t\t\tWaktu Datang    : ");
 	scanf("%d", &customer.waktuKedatangan);
-
+	
+	//Inisialisasi variabel Data penyakit dengan Kalimat Kosong
 	for(i=0; i<10; i++){
 		strcpy(customer.dataPenyakit[i],"Kosong");
 	}
@@ -156,6 +163,8 @@ void tambahPendaftar(Queue *Q){
 			customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
 		}
 	}
+	
+	//Proses mengisi poin prioritas dan kategori penyakit
 	customer.prioritas = HitungPrioritas(customer.dataPenyakit);
 	if(customer.WaktuPelayanan==45){
 		strcpy(customer.kategoriPenyakit,"Berat"); 
@@ -165,7 +174,7 @@ void tambahPendaftar(Queue *Q){
 		strcpy(customer.kategoriPenyakit,"Ringan"); 	
 	}
 			
-	//Memasukkan ke antrian
+	//Memasukkan data ke antrian
 	enQueue(Q,customer);
 	
 	printf("\n\n\t\t\t\t>>>------------------------------------------<<<\n\n");
@@ -173,7 +182,7 @@ void tambahPendaftar(Queue *Q){
 	getch();
 }
 
-/* Deskripsi : Modul untuk menampilkan data pendaftar 
+/* Deskripsi : Modul untuk memilih cara untuk menampilkan data pendaftar 
    Autor : Dimas W S
 */
 
@@ -205,8 +214,11 @@ void tampilPendaftar(Queue Q){
 */
 
 void panggilPendaftar(Queue *myQueue, int *checkpoints){
+	//Deklarasi
 	data temp;
 	temp.prioritas = 6;
+	
+	//Mengeluarkan antrian
 	deQueue(myQueue, &temp);
 	if(temp.prioritas>5){
 		puts("\t\t\t\t\tPendaftar masih kosong!");
@@ -310,20 +322,25 @@ void credit(){
 
 void sort(Queue *Q){
 	//Kamus Data
-	NodeQueue *p, *buff;
+	NodeQueue *p, *buff, *first;
 	data temp;
 	int i;
 	
 	//Algoritma
 	p = Q->Front;
+	
+	//Jika antrian kosong atau hanya memiliki satu elemen, maka modul sort tidak dijalankan
 	if(p==NULL || p->next==NULL){
  		return;
 	}
-	p = p->next;
+	first = p;//1
+	p = p->next;//2
+	
 	while(p->next!=NULL){
-		buff = p->next;
+		buff = p->next;//3
 		while(buff!=NULL){
-			if(p->info.WaktuSelesai > buff->info.waktuKedatangan){
+			//Jika Waktu Selesai pasien 1 dan 2 lebih dari waktu kedatangan pasien 3, maka bisa terjadi penukaran
+			if(p->info.WaktuSelesai > buff->info.waktuKedatangan && first->info.WaktuSelesai > buff->info.waktuKedatangan){
 				if(p->info.prioritas < buff->info.prioritas){
 					temp = p->info;
 					p->info = buff->info;
@@ -338,6 +355,7 @@ void sort(Queue *Q){
 			}
 			buff = buff->next;
 		}
+		first = first->next;
 		p = p->next; 
 	}
 }
@@ -352,12 +370,15 @@ void set(Queue *Q, int checkpoints){
 	NodeQueue *p, *buff;
 	data temp;
 	
+	//Algoritma
 	p = Q->Front;
+	
+	//Jika antrian kosong atau hanya memiliki satu elemen, maka modul set tidak dijalankan
 	if(p==NULL || p->next==NULL){
  		return;
 	}
 	
-	//Set Waktu mulai Pemeriksaan dan Waktu Selesai; 	
+	//Set Waktu mulai Pemeriksaan dan Waktu Selesai	pada elemen
 	if(checkpoints==0){
 		p->info.WaktuMulai = p->info.waktuKedatangan;
 		p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;	
