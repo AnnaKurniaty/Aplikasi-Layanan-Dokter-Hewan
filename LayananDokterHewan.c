@@ -21,40 +21,6 @@ int HitungPrioritas(char temp[10][255]);
 int KlasifikasiKategori(char temp[10][255]);
 void header();
 
-
-int KlasifikasiKategori(char temp[10][255]){
-	int i;
-	//Jika ada penyakit dengan kategori berat akan mengembalikan angka 1
-	for(i=0; i<10; i++){
-		if(strcmp(temp[i],"Kosong")==0){
-			break;
-		}
-		if(strcmp(temp[i],"gangguan kerongkongan")==0){
-			return 1;
-		}else if(strcmp(temp[i],"kuning")==0){
-			return 1;
-		}else if(strcmp(temp[i],"terkena virus")==0){
-			return 1;
-		}	
-	}
-	
-	//Jika ada penyakit dengan kategori sedang akan mengembalikan angka 2
-	for(i=0; i<10; i++){
-		if(strcmp(temp[i],"Kosong")==0){
-			break;
-		}
-		if(strcmp(temp[i],"cacingan")==0){
-			return 2;
-		}else if(strcmp(temp[i],"diare")==0){
-			return 2;
-		}else if(strcmp(temp[i],"luka dalam")==0){
-			return 2;
-		}
-	}
-	//Jika tidak ada penyakit dengan kategori berat maupun sedang akan mengembalikan angka 3
-	return 3;
-}
-
 /* 
 	Deskripsi : Modul untuk menghitung waktu pelayanan yang sudah di set berdasarkan kategori penyakit 
    Autor : Dimas W S
@@ -378,6 +344,45 @@ void credit(){
 	    scanf("%s",&kembali);
 		}
 	while(kembali != '1');
+}
+
+
+/* 
+	Deskripsi : Modul untuk menentukan kategori suatu pasien
+	Autor : Dimas W S
+*/
+
+int KlasifikasiKategori(char temp[10][255]){
+	int i;
+	//Jika ada penyakit dengan kategori berat akan mengembalikan angka 1
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+			return 1;
+		}else if(strcmp(temp[i],"kuning")==0){
+			return 1;
+		}else if(strcmp(temp[i],"terkena virus")==0){
+			return 1;
+		}	
+	}
+	
+	//Jika ada penyakit dengan kategori sedang akan mengembalikan angka 2
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"cacingan")==0){
+			return 2;
+		}else if(strcmp(temp[i],"diare")==0){
+			return 2;
+		}else if(strcmp(temp[i],"luka dalam")==0){
+			return 2;
+		}
+	}
+	//Jika tidak ada penyakit dengan kategori berat maupun sedang akan mengembalikan angka 3
+	return 3;
 }
 
 /* 
