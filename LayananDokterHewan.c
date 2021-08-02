@@ -18,39 +18,103 @@ void set(Queue *Q, int checkpoints);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
 int HitungPrioritas(char temp[10][255]);
+int KlasifikasiKategori(char temp[10][255]);
 void header();
 
+
+int KlasifikasiKategori(char temp[10][255]){
+	int i;
+	//Jika ada penyakit dengan kategori berat akan mengembalikan angka 1
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+			return 1;
+		}else if(strcmp(temp[i],"kuning")==0){
+			return 1;
+		}else if(strcmp(temp[i],"terkena virus")==0){
+			return 1;
+		}	
+	}
+	
+	//Jika ada penyakit dengan kategori sedang akan mengembalikan angka 2
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"cacingan")==0){
+			return 2;
+		}else if(strcmp(temp[i],"diare")==0){
+			return 2;
+		}else if(strcmp(temp[i],"luka dalam")==0){
+			return 2;
+		}
+	}
+	//Jika tidak ada penyakit dengan kategori berat maupun sedang akan mengembalikan angka 3
+	return 3;
+}
 
 /* 
 	Deskripsi : Modul untuk menghitung waktu pelayanan yang sudah di set berdasarkan kategori penyakit 
    Autor : Dimas W S
    
 */
-   
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
-	//Mengembalikan 45 menit jika pada daftar penyakit terdapat penyakit dengan kategori berat
+	int result = 0;
+	//Menambahkan 45 menit jika pada daftar penyakit terdapat penyakit dengan kategori berat
 	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
 		if(strcmp(temp[i],"gangguan kerongkongan")==0){
-			return 45;
+			result += 45;
 		}else if(strcmp(temp[i],"kuning")==0){
-			return 45;
+			result += 45;
 		}else if(strcmp(temp[i],"terkena virus")==0){
-			return 45;
-		}
+			result += 45;
+		}	
 	}
-	//Mengembalikan 30 menit jika pada daftar penyakit terdapat penyakit dengan kategori sedang
+	
+	//Menambahkan 30 menit jika pada daftar penyakit terdapat penyakit dengan kategori sedang
 	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
 		if(strcmp(temp[i],"cacingan")==0){
-			return 30;
+			result += 30;
 		}else if(strcmp(temp[i],"diare")==0){
-			return 30;
+			result += 30;
 		}else if(strcmp(temp[i],"luka dalam")==0){
-			return 30;
+			result += 30;
 		}
 	}
-	//Mengembalikan 15 menit jika pada daftar penyakit terdapat penyakit dengan kategori ringan atau tidak ada terdaftar di kategori
-	return 15;
+	
+	//Menambahkan 15 menit jika pada daftar penyakit terdapat penyakit dengan kategori ringan
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"penyakit kulit")==0){
+			result += 15;
+		}else if(strcmp(temp[i],"luka ringan")==0){
+			result += 15;
+		}else if(strcmp(temp[i],"bersin")==0){
+			result += 15;
+		}
+	}
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"gangguan kerongkongan")!=0 && strcmp(temp[i],"kuning")!=0 && strcmp(temp[i],"terkena virus")!=0 && strcmp(temp[i],"cacingan")!=0 && strcmp(temp[i],"diare") !=0 && strcmp(temp[i],"luka dalam") != 0 && strcmp(temp[i],"penyakit kulit") != 0 && strcmp(temp[i],"luka ringan") != 0 &&strcmp(temp[i],"bersin") != 0 ){
+			result += 15;
+		}	
+	}
+	
+	//Mengembalikan result
+	return result;
 }
 
 
@@ -166,9 +230,10 @@ void tambahPendaftar(Queue *Q){
 	
 	//Proses mengisi poin prioritas dan kategori penyakit
 	customer.prioritas = HitungPrioritas(customer.dataPenyakit);
-	if(customer.WaktuPelayanan==45){
+	
+	if(KlasifikasiKategori(customer.dataPenyakit)==1){
 		strcpy(customer.kategoriPenyakit,"Berat"); 
-	}else if(customer.WaktuPelayanan==30){
+	}else if(KlasifikasiKategori(customer.dataPenyakit)==2){
 		strcpy(customer.kategoriPenyakit,"Sedang"); 
 	}else{
 		strcpy(customer.kategoriPenyakit,"Ringan"); 	

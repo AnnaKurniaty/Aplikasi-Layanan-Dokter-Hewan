@@ -123,7 +123,7 @@ void PrintQueue(Queue data){
 	if(!IsQueueEmpty(data)){
 		p = data.Front;
 		while (p != nil){
-			printf("\t%d. %s \t     %d  \t %s       %s  \t   %d    \t   %d  \t     %d  \t     %d\n", i, p->info.nama, p->info.waktuKedatangan, p->info.kategoriPenyakit, p->info.dataPenyakit[0], p->info.WaktuPelayanan, p->info.WaktuMulai, p->info.WaktuSelesai, p->info.prioritas);
+			printf("\t%d. %s \t     %d  \t %s       %s  \t   %d    \t   %d       %d  \t     %d\n", i, p->info.nama, p->info.waktuKedatangan, p->info.kategoriPenyakit, p->info.dataPenyakit[0], p->info.WaktuPelayanan, p->info.WaktuMulai, p->info.WaktuSelesai, p->info.prioritas);
 			i++;
 			p = next(p);
 		}
