@@ -1,8 +1,11 @@
+
+#ifndef LAYANANDOKTERHEWAN_H
+#define LAYANANDOKTERHEWAN_H
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "queue.c"
-#include "queue.h"
 
 
 #define KULIT "penyakit kulit"
@@ -27,4 +30,4 @@ int HitungPrioritas(char temp[10][255]);
 int KlasifikasiKategori(char temp[10][255]);
 void header();
 
-
+#endif

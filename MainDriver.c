@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "queue.c"
 #include "queue.h"
-#include "LayananDokterHewan.c"
+#include "queue.c"
 #include "LayananDokterHewan.h"
+#include "LayananDokterHewan.c"
+
 /* 
 	Deskripsi : Modul untuk menjalankan program
 	Autor : Hasanah
