@@ -1,36 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "queue.c"
-#include "queue.h"
+#include "LayananDokterHewan.h"
 
-
-#define KULIT "penyakit kulit"
-#define LURING "luka ringan"
-#define BERSIN "bersin"
-#define CACINGAN "cacingan"
-#define DIARE "diare"
-#define LUDAM "luka dalam"
-#define KERONGKONGAN "gangguan kerongkongan"
-#define KUNING "kuning"
-#define VIRUS "terkena virus"
 
 /*
 	ringan : penyakit kulit, luka ringan, bersin
 	sedang : cacingan, diare, luka dalam
 	berat : gangguan kerongkongan yang mengeluarkan lendir yang berbau busuk, kuning, terkena virus 
 */
-void tambahPendaftar(Queue *Q);
-void tampilPendaftar(Queue myQueue);
-void panggilPendaftar(Queue *myQueue, int *checkpoints );
-void help();
-void credit();
-void set(Queue *Q, int checkpoints);
-void sort(Queue *Q);
-int HitungWaktuPelayanan(char temp[10][255]);
-int HitungPrioritas(char temp[10][255]);
-int KlasifikasiKategori(char temp[10][255]);
-void header();
 
 /* 
 	Deskripsi : Modul untuk menghitung waktu pelayanan yang sudah di set berdasarkan kategori penyakit 
@@ -158,7 +136,16 @@ void tambahPendaftar(Queue *Q){
 	system("cls");
 	printf("\n\t\t\t\t\t    |~|~|~|~QUEENPET~|~|~|~|");
 	printf("\n\n\t\t\t\t\t    ~|Masukan Data Antrian|~");
-	printf("\n\n\t\t\t\t>>>------------------------------------------<<<\n\n");
+	printf("\n\n\t\t\t\t>>>------------------------------------------<<<\n");
+	printf("\n\n\t\t\t\t\t      ~|Daftar Penyakit|~\n\n");
+	printf("\t\t\t\t\t1. Ringan : penyakit kulit,\n");
+	printf("\t\t\t\t\t   luka ringan, bersin\n");
+	printf("\t\t\t\t\t2. Sedang : cacingan, diare, \n");
+	printf("\t\t\t\t\t   luka dalam\n");
+	printf("\t\t\t\t\t3. Berat : gangguan \n");
+	printf("\t\t\t\t\t   kerongkongan, kuning, \n");
+	printf("\t\t\t\t\t   terkena virus\n");
+	printf("\n\n\t\t\t\t>>>------------------------------------------<<<\n");			
 	printf("\t\t\t\t\tNama            : ");
 	fflush(stdin);
 	scanf("%[^\n]c", customer.nama);
@@ -347,9 +334,7 @@ void help(){
 			printf("\t\t\t\t2. Sedang : cacingan, diare, \n");
 			printf("\t\t\t\t   luka dalam\n");
 			printf("\t\t\t\t3. Berat : gangguan \n");
-			printf("\t\t\t\t   kerongkongan yang  \n");
-			printf("\t\t\t\t   mengeluarkan lendir yang \n");
-			printf("\t\t\t\t   berbau busuk, kuning, \n");
+			printf("\t\t\t\t   kerongkongan, kuning, \n");
 			printf("\t\t\t\t   terkena virus\n");
 			printf("\n\t\t\t\t>>>---------------------<<<\n\n");
 			printf("\n type anything to return : ");
