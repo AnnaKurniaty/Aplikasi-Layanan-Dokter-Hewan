@@ -18,42 +18,74 @@ void set(Queue *Q, int checkpoints);
 void sort(Queue *Q);
 int HitungWaktuPelayanan(char temp[10][255]);
 int HitungPrioritas(char temp[10][255]);
+int KlasifikasiKategori(char temp[10][255]);
 void header();
-
 
 /* 
 	Deskripsi : Modul untuk menghitung waktu pelayanan yang sudah di set berdasarkan kategori penyakit 
    Autor : Dimas W S
    
 */
-   
 int HitungWaktuPelayanan(char temp[10][255]){
 	int i;
+	int result = 0;
+	//Menambahkan 45 menit jika pada daftar penyakit terdapat penyakit dengan kategori berat
 	for(i=0; i<10; i++){
-		if(strcmp(temp[i],"gangguan kerongkongan")==0){
-			return 45;
-		}else if(strcmp(temp[i],"kuning")==0){
-			return 45;
-		}else if(strcmp(temp[i],"terkena virus")==0){
-			return 45;
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
 		}
+		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+			result += 45;
+		}else if(strcmp(temp[i],"kuning")==0){
+			result += 45;
+		}else if(strcmp(temp[i],"terkena virus")==0){
+			result += 45;
+		}	
 	}
+	
+	//Menambahkan 30 menit jika pada daftar penyakit terdapat penyakit dengan kategori sedang
 	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
 		if(strcmp(temp[i],"cacingan")==0){
-			return 30;
+			result += 30;
 		}else if(strcmp(temp[i],"diare")==0){
-			return 30;
+			result += 30;
 		}else if(strcmp(temp[i],"luka dalam")==0){
-			return 30;
+			result += 30;
 		}
 	}
 	
-	return 15;
+	//Menambahkan 15 menit jika pada daftar penyakit terdapat penyakit dengan kategori ringan
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"penyakit kulit")==0){
+			result += 15;
+		}else if(strcmp(temp[i],"luka ringan")==0){
+			result += 15;
+		}else if(strcmp(temp[i],"bersin")==0){
+			result += 15;
+		}
+	}
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"gangguan kerongkongan")!=0 && strcmp(temp[i],"kuning")!=0 && strcmp(temp[i],"terkena virus")!=0 && strcmp(temp[i],"cacingan")!=0 && strcmp(temp[i],"diare") !=0 && strcmp(temp[i],"luka dalam") != 0 && strcmp(temp[i],"penyakit kulit") != 0 && strcmp(temp[i],"luka ringan") != 0 &&strcmp(temp[i],"bersin") != 0 ){
+			result += 15;
+		}	
+	}
+	
+	//Mengembalikan result
+	return result;
 }
 
 
 /* 
-	Deskripsi : Modul ini berfungsi untuk memprioritaskan data pasien sesuai kategori penyakit yaitu berat sedang dan ringan 
+	Deskripsi : Modul ini berfungsi untuk menghitung poin prioritas pada data pasien sesuai kategori penyakit yaitu, berat, sedang, dan ringan 
 	Autor : Hasanah
 	
 */
@@ -62,7 +94,9 @@ int HitungPrioritas(char temp[10][255]){
 	int i;
 	int tempSedang = 0;
 	int tempRingan = 0;
-	
+	//Mengembalikan langsung 4 poin apabila terdapat penyakit dengan kategori berat
+	//Jika terdapat penyakit dengan kategori ringan, jumlah penyakit akan disimpan di tempRingan
+	//Jika terdapat penyakit dengan kategori sedang, jumlah penyakit akan disimpan di tempSedang
 	for(i=0; i<10; i++){
 		if(strcmp(temp[i],"gangguan kerongkongan")==0){
 			return 4;
@@ -84,6 +118,8 @@ int HitungPrioritas(char temp[10][255]){
 			tempRingan++;
 		}
 	}
+	//Mengembalikan 3 poin apabila terdapat penyakit dengan kategori sedang dengan jumlah 2 atau lebih
+	//Mengembalikan 2 poin apabila terdapat penyakit dengan kategori ringan dengan jumlah 3 atau lebih
 	if(tempSedang>=2){
 		return 3;
 	}else if(tempRingan>=3){
@@ -117,7 +153,8 @@ void tambahPendaftar(Queue *Q){
 	scanf("%[^\n]c", customer.nama);
 	printf("\t\t\t\t\tWaktu Datang    : ");
 	scanf("%d", &customer.waktuKedatangan);
-
+	
+	//Inisialisasi variabel Data penyakit dengan Kalimat Kosong
 	for(i=0; i<10; i++){
 		strcpy(customer.dataPenyakit[i],"Kosong");
 	}
@@ -156,16 +193,19 @@ void tambahPendaftar(Queue *Q){
 			customer.WaktuSelesai = customer.waktuKedatangan + customer.WaktuPelayanan;
 		}
 	}
+	
+	//Proses mengisi poin prioritas dan kategori penyakit
 	customer.prioritas = HitungPrioritas(customer.dataPenyakit);
-	if(customer.WaktuPelayanan==45){
+	
+	if(KlasifikasiKategori(customer.dataPenyakit)==1){
 		strcpy(customer.kategoriPenyakit,"Berat"); 
-	}else if(customer.WaktuPelayanan==30){
+	}else if(KlasifikasiKategori(customer.dataPenyakit)==2){
 		strcpy(customer.kategoriPenyakit,"Sedang"); 
 	}else{
 		strcpy(customer.kategoriPenyakit,"Ringan"); 	
 	}
 			
-	//Memasukkan ke antrian
+	//Memasukkan data ke antrian
 	enQueue(Q,customer);
 	
 	printf("\n\n\t\t\t\t>>>------------------------------------------<<<\n\n");
@@ -173,7 +213,7 @@ void tambahPendaftar(Queue *Q){
 	getch();
 }
 
-/* Deskripsi : Modul untuk menampilkan data pendaftar 
+/* Deskripsi : Modul untuk memilih cara untuk menampilkan data pendaftar 
    Autor : Dimas W S
 */
 
@@ -205,8 +245,11 @@ void tampilPendaftar(Queue Q){
 */
 
 void panggilPendaftar(Queue *myQueue, int *checkpoints){
+	//Deklarasi
 	data temp;
 	temp.prioritas = 6;
+	
+	//Mengeluarkan antrian
 	deQueue(myQueue, &temp);
 	if(temp.prioritas>5){
 		puts("\t\t\t\t\tPendaftar masih kosong!");
@@ -281,7 +324,7 @@ void help(){
 }
 
 /* Deskripsi : Modul untuk menampilkan data Credit
-   Autor : Credit
+   Autor : hasanah
 */
 
 void credit(){
@@ -303,27 +346,71 @@ void credit(){
 	while(kembali != '1');
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+
+/* 
+	Deskripsi : Modul untuk menentukan kategori suatu pasien
+	Autor : Dimas W S
+*/
+
+int KlasifikasiKategori(char temp[10][255]){
+	int i;
+	//Jika ada penyakit dengan kategori berat akan mengembalikan angka 1
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+			return 1;
+		}else if(strcmp(temp[i],"kuning")==0){
+			return 1;
+		}else if(strcmp(temp[i],"terkena virus")==0){
+			return 1;
+		}	
+	}
+	
+	//Jika ada penyakit dengan kategori sedang akan mengembalikan angka 2
+	for(i=0; i<10; i++){
+		if(strcmp(temp[i],"Kosong")==0){
+			break;
+		}
+		if(strcmp(temp[i],"cacingan")==0){
+			return 2;
+		}else if(strcmp(temp[i],"diare")==0){
+			return 2;
+		}else if(strcmp(temp[i],"luka dalam")==0){
+			return 2;
+		}
+	}
+	//Jika tidak ada penyakit dengan kategori berat maupun sedang akan mengembalikan angka 3
+	return 3;
+}
+
+/* 
+	Deskripsi : Modul untuk mengurutkan queue berdasarkan prioritas
+	Autor : Dimas W S
 */
 
 void sort(Queue *Q){
 	//Kamus Data
-	NodeQueue *p, *buff;
+	NodeQueue *p, *buff, *first;
 	data temp;
 	int i;
 	
 	//Algoritma
 	p = Q->Front;
+	
+	//Jika antrian kosong atau hanya memiliki satu elemen, maka modul sort tidak dijalankan
 	if(p==NULL || p->next==NULL){
  		return;
 	}
-	p = p->next;
+	first = p;//1
+	p = p->next;//2
+	
 	while(p->next!=NULL){
-		buff = p->next;
+		buff = p->next;//3
 		while(buff!=NULL){
-			if(p->info.WaktuSelesai > buff->info.waktuKedatangan){
+			//Jika Waktu Selesai pasien 1 dan 2 lebih dari waktu kedatangan pasien 3, maka bisa terjadi penukaran
+			if(p->info.WaktuSelesai > buff->info.waktuKedatangan && first->info.WaktuSelesai > buff->info.waktuKedatangan){
 				if(p->info.prioritas < buff->info.prioritas){
 					temp = p->info;
 					p->info = buff->info;
@@ -338,13 +425,14 @@ void sort(Queue *Q){
 			}
 			buff = buff->next;
 		}
+		first = first->next;
 		p = p->next; 
 	}
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+/* 
+	Deskripsi : Modul ini berfungsi untuk menghitung waktu mulai pemeriksaan hingga waktu selesai pasien
+	Autor : Dimas W S
 */
 
 void set(Queue *Q, int checkpoints){
@@ -352,12 +440,15 @@ void set(Queue *Q, int checkpoints){
 	NodeQueue *p, *buff;
 	data temp;
 	
+	//Algoritma
 	p = Q->Front;
+	
+	//Jika antrian kosong atau hanya memiliki satu elemen, maka modul set tidak dijalankan
 	if(p==NULL || p->next==NULL){
  		return;
 	}
 	
-	//Set Waktu mulai Pemeriksaan dan Waktu Selesai; 	
+	//Set Waktu mulai Pemeriksaan dan Waktu Selesai	pada elemen
 	if(checkpoints==0){
 		p->info.WaktuMulai = p->info.waktuKedatangan;
 		p->info.WaktuSelesai = p->info.waktuKedatangan + p->info.WaktuPelayanan;	
@@ -385,9 +476,9 @@ void set(Queue *Q, int checkpoints){
 	}
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+/* 
+	Deskripsi : Modul untuk menampilkan tampilan di main menu
+	Autor : Anna K
 */
 
 void header(){
@@ -397,9 +488,10 @@ void header(){
 	printf("\n\t\t\t\t|________________________________________|\n");
 }
 
-/* Inisial state :
-   final state
-   Autor : 
+/* 
+	Deskripsi : Modul untuk menjalankan program
+	Autor : Hasanah
+
 */
 
 int main(){

@@ -4,6 +4,17 @@
 #include "queue.c"
 #include "queue.h"
 
+
+#define KULIT "penyakit kulit"
+#define LURING "luka ringan"
+#define BERSIN "bersin"
+#define CACINGAN "cacingan"
+#define DIARE "diare"
+#define LUDAM "luka dalam"
+#define KERONGKONGAN "gangguan kerongkongan"
+#define KUNING "kuning"
+#define VIRUS "terkena virus"
+
 /*
 	ringan : penyakit kulit, luka ringan, bersin
 	sedang : cacingan, diare, luka dalam
@@ -34,11 +45,11 @@ int HitungWaktuPelayanan(char temp[10][255]){
 		if(strcmp(temp[i],"Kosong")==0){
 			break;
 		}
-		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+		if(strcmp(temp[i],KERONGKONGAN)==0){
 			result += 45;
-		}else if(strcmp(temp[i],"kuning")==0){
+		}else if(strcmp(temp[i],KUNING)==0){
 			result += 45;
-		}else if(strcmp(temp[i],"terkena virus")==0){
+		}else if(strcmp(temp[i],VIRUS)==0){
 			result += 45;
 		}	
 	}
@@ -48,11 +59,11 @@ int HitungWaktuPelayanan(char temp[10][255]){
 		if(strcmp(temp[i],"Kosong")==0){
 			break;
 		}
-		if(strcmp(temp[i],"cacingan")==0){
+		if(strcmp(temp[i],CACINGAN)==0){
 			result += 30;
-		}else if(strcmp(temp[i],"diare")==0){
+		}else if(strcmp(temp[i],DIARE)==0){
 			result += 30;
-		}else if(strcmp(temp[i],"luka dalam")==0){
+		}else if(strcmp(temp[i],LUDAM)==0){
 			result += 30;
 		}
 	}
@@ -62,11 +73,11 @@ int HitungWaktuPelayanan(char temp[10][255]){
 		if(strcmp(temp[i],"Kosong")==0){
 			break;
 		}
-		if(strcmp(temp[i],"penyakit kulit")==0){
+		if(strcmp(temp[i],KULIT)==0){
 			result += 15;
-		}else if(strcmp(temp[i],"luka ringan")==0){
+		}else if(strcmp(temp[i],LURING)==0){
 			result += 15;
-		}else if(strcmp(temp[i],"bersin")==0){
+		}else if(strcmp(temp[i],BERSIN)==0){
 			result += 15;
 		}
 	}
@@ -74,7 +85,7 @@ int HitungWaktuPelayanan(char temp[10][255]){
 		if(strcmp(temp[i],"Kosong")==0){
 			break;
 		}
-		if(strcmp(temp[i],"gangguan kerongkongan")!=0 && strcmp(temp[i],"kuning")!=0 && strcmp(temp[i],"terkena virus")!=0 && strcmp(temp[i],"cacingan")!=0 && strcmp(temp[i],"diare") !=0 && strcmp(temp[i],"luka dalam") != 0 && strcmp(temp[i],"penyakit kulit") != 0 && strcmp(temp[i],"luka ringan") != 0 &&strcmp(temp[i],"bersin") != 0 ){
+		if(strcmp(temp[i],KERONGKONGAN)!=0 && strcmp(temp[i],KUNING)!=0 && strcmp(temp[i],VIRUS)!=0 && strcmp(temp[i],CACINGAN)!=0 && strcmp(temp[i],DIARE) !=0 && strcmp(temp[i],LUDAM) != 0 && strcmp(temp[i],KULIT) != 0 && strcmp(temp[i],LURING) != 0 &&strcmp(temp[i],BERSIN) != 0 ){
 			result += 15;
 		}	
 	}
@@ -98,23 +109,23 @@ int HitungPrioritas(char temp[10][255]){
 	//Jika terdapat penyakit dengan kategori ringan, jumlah penyakit akan disimpan di tempRingan
 	//Jika terdapat penyakit dengan kategori sedang, jumlah penyakit akan disimpan di tempSedang
 	for(i=0; i<10; i++){
-		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+		if(strcmp(temp[i],KERONGKONGAN)==0){
 			return 4;
-		}else if(strcmp(temp[i],"kuning")==0){
+		}else if(strcmp(temp[i],KUNING)==0){
 			return 4;
-		}else if(strcmp(temp[i],"terkena virus")==0){
+		}else if(strcmp(temp[i],VIRUS)==0){
 			return 4;	
-		}else if(strcmp(temp[i],"cacingan")==0){
+		}else if(strcmp(temp[i],CACINGAN)==0){
 			tempSedang++;
-		}else if(strcmp(temp[i],"diare")==0){
+		}else if(strcmp(temp[i],DIARE)==0){
 			tempSedang++;
-		}else if(strcmp(temp[i],"luka dalam")==0){
+		}else if(strcmp(temp[i],LUDAM)==0){
 			tempSedang++;
-		}else if(strcmp(temp[i],"penyakit kulit")==0){
+		}else if(strcmp(temp[i],KULIT)==0){
 			tempRingan++;
-		}else if(strcmp(temp[i],"luka ringan")==0){
+		}else if(strcmp(temp[i],LURING)==0){
 			tempRingan++;
-		}else if(strcmp(temp[i],"bersin")==0){
+		}else if(strcmp(temp[i],BERSIN)==0){
 			tempRingan++;
 		}
 	}
@@ -153,7 +164,32 @@ void tambahPendaftar(Queue *Q){
 	scanf("%[^\n]c", customer.nama);
 	printf("\t\t\t\t\tWaktu Datang    : ");
 	scanf("%d", &customer.waktuKedatangan);
-	
+	//validasi waktu kedatangan
+	if(p != NULL){
+		if(customer.waktuKedatangan == p->info.waktuKedatangan){
+			while(true){
+				puts("\t\t\t\t\tMasukkan angka yang benar!!");
+				printf("\n\t\t\t\t\tWaktu Datang    : ");
+				fflush(stdin);
+				scanf("%d", &customer.waktuKedatangan);
+				if(customer.waktuKedatangan != p->info.waktuKedatangan){
+					break;
+				}
+			}	
+		}
+	}else{
+		if(customer.waktuKedatangan == 1){
+			while(true){
+				puts("\t\t\t\t\tMasukkan angka yang benar!!");
+				printf("\n\t\t\t\t\tWaktu Datang    : ");
+				fflush(stdin);
+				scanf("%d", &customer.waktuKedatangan);
+				if(customer.waktuKedatangan != 1){
+					break;
+				}
+			}	
+		}	
+	}
 	//Inisialisasi variabel Data penyakit dengan Kalimat Kosong
 	for(i=0; i<10; i++){
 		strcpy(customer.dataPenyakit[i],"Kosong");
@@ -359,11 +395,11 @@ int KlasifikasiKategori(char temp[10][255]){
 		if(strcmp(temp[i],"Kosong")==0){
 			break;
 		}
-		if(strcmp(temp[i],"gangguan kerongkongan")==0){
+		if(strcmp(temp[i],KERONGKONGAN)==0){
 			return 1;
-		}else if(strcmp(temp[i],"kuning")==0){
+		}else if(strcmp(temp[i],KUNING)==0){
 			return 1;
-		}else if(strcmp(temp[i],"terkena virus")==0){
+		}else if(strcmp(temp[i],VIRUS)==0){
 			return 1;
 		}	
 	}
@@ -373,11 +409,11 @@ int KlasifikasiKategori(char temp[10][255]){
 		if(strcmp(temp[i],"Kosong")==0){
 			break;
 		}
-		if(strcmp(temp[i],"cacingan")==0){
+		if(strcmp(temp[i],CACINGAN)==0){
 			return 2;
-		}else if(strcmp(temp[i],"diare")==0){
+		}else if(strcmp(temp[i],DIARE)==0){
 			return 2;
-		}else if(strcmp(temp[i],"luka dalam")==0){
+		}else if(strcmp(temp[i],LUDAM)==0){
 			return 2;
 		}
 	}
