@@ -1,0 +1,12 @@
+Help
+
+1. Aturan Prioritas
+Parameter urutan prioritas ditentukan dengan nilai sebagai berikut :
+Memiliki salah satu penyakit berat - 4
+Memiliki minimal 2 buah penyakit sedang - 3
+Memiliki minimal 3 buah penyakit ringan - 2
+Waktu kedatangan - 1
+2. Daftar penyakit
+Ringan : penyakit kulit, luka ringan, bersin (15 menit)
+Sedang : cacingan, diare, luka dalam (30 menit)
+Berat : gangguan kerongkongan yang mengeluarkan lendir yang berbau busuk, kuning, terkena virus (45 menit)
